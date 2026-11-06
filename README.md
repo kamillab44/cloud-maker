@@ -9,6 +9,7 @@
 Linux host with QEMU/KVM installed. The files test-vm.qcow2 (VM disk) and seed.iso (cloud-init config) must be in the same directory.
 
 ## How to run and verify
+
 ### Option 1: Manual launch
 1. Start the VM using this command:
 sudo qemu-system-x86_64 -enable-kvm -m 1024 -smp 2 -drive file=test-vm.qcow2,format=qcow2 -drive file=seed.iso,format=raw -netdev user,id=net0,hostfwd=tcp::2222-:22 -device virtio-net-pci,netdev=net0 -nographic
@@ -26,8 +27,7 @@ Waiting 10 seconds for boot...
 SUCCESS: VM is running correctly!
 VM stopped.
 
-
-## cloud-init Configuration
+## cloud-init Configuration (user-data)
 The file user-data contains the following YAML configuration:
 #cloud-config
 hostname: test-vm
@@ -44,9 +44,8 @@ ssh_pwauth: True
 packages:
   - openssh-server
 
-
 ## Check Script (check.sh)
-The script uses `-display none -daemonize` to run QEMU in the background without blocking the terminal. It then checks if the process is alive using `pgrep` and terminates it using `pkill`.
+The script uses -display none -daemonize to run QEMU in the background without blocking the terminal. It then checks if the process is alive using pgrep and terminates it using pkill.
 #!/bin/bash
 echo "Starting VM..."
 sudo qemu-system-x86_64 -enable-kvm -m 1024 -smp 2 \
