@@ -12,20 +12,20 @@ Linux host with QEMU/KVM installed. The files test-vm.qcow2 (VM disk) and seed.i
 
 ### Option 1: Manual launch
 1. Start the VM using this command:
-sudo qemu-system-x86_64 -enable-kvm -m 1024 -smp 2 -drive file=test-vm.qcow2,format=qcow2 -drive file=seed.iso,format=raw -netdev user,id=net0,hostfwd=tcp::2222-:22 -device virtio-net-pci,netdev=net0 -nographic
+   sudo qemu-system-x86_64 -enable-kvm -m 1024 -smp 2 -drive file=test-vm.qcow2,format=qcow2 -drive file=seed.iso,format=raw -netdev user,id=net0,hostfwd=tcp::2222-:22 -device virtio-net-pci,netdev=net0 -nographic
 2. You will see the login prompt: test-vm login:
 3. Log in with the credentials applied by cloud-init. Username: student. Password: 12345.
 4. Verify you are inside the VM. The prompt should look like: student@test-vm:~$
 
 ### Option 2: Automated check (Script)
 Run the script to automatically start, verify, and stop the VM:
-chmod +x check.sh
-./check.sh
+   chmod +x check.sh
+   ./check.sh
 Expected output:
-Starting VM...
-Waiting 10 seconds for boot...
-SUCCESS: VM is running correctly!
-VM stopped.
+   Starting VM...
+   Waiting 10 seconds for boot...
+   SUCCESS: VM is running correctly!
+   VM stopped.
 
 ## cloud-init Configuration (user-data)
 The file user-data contains the following YAML configuration:
