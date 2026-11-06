@@ -1,0 +1,14 @@
+#cloud-config
+hostname: test-vm
+users:
+  - name: student
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    lock_passwd: false
+chpasswd:
+  list: |
+    student:12345
+  expire: False
+ssh_pwauth: True
+packages:
+  - openssh-server
